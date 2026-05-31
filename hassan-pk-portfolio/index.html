@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hassan PK — Python Developer</title>
+  <meta name="description" content="Hassan PK — Python Developer building apps, websites, and automation tools for IT clients.">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --violet: #7c3aed;
+      --violet-light: #8b5cf6;
+      --violet-soft: #ede9fe;
+      --violet-deep: #5b21b6;
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --text: #1f1f23;
+      --text-soft: #6b6b7a;
+      --line: #e4e4e9;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 0;
+      background: rgba(250,250,250,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(228,228,233,0.6);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 20px; font-weight: 800; color: var(--violet); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-soft); font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--violet); }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--violet); color: white; padding: 10px 22px; border-radius: 10px;
+      text-decoration: none; font-weight: 600; font-size: 15px; transition: all 0.2s; border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--violet-deep); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(124,58,237,0.3); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--violet); padding: 10px 22px; border-radius: 10px;
+      text-decoration: none; font-weight: 600; font-size: 15px; transition: all 0.2s;
+      border: 2px solid var(--violet); cursor: pointer;
+    }
+    .btn-outline:hover { background: var(--violet-soft); }
+
+    /* ── HERO ── */
+    .hero { padding: 160px 0 100px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; top: -120px; right: -180px;
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, rgba(139,92,246,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--violet-soft); color: var(--violet);
+      padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px;
+    }
+    .hero-badge svg { width: 14px; height: 14px; }
+    .hero h1 { font-size: 54px; font-weight: 800; line-height: 1.08; letter-spacing: -2px; margin-bottom: 20px; }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--violet), var(--violet-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-desc { font-size: 18px; color: var(--text-soft); line-height: 1.75; margin-bottom: 36px; max-width: 520px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-code {
+      background: #1e1b2e; border-radius: 18px; padding: 28px;
+      font-family: 'JetBrains Mono', monospace; font-size: 14px; position: relative; overflow: hidden;
+    }
+    .code-header { display: flex; gap: 8px; margin-bottom: 20px; }
+    .code-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .code-dot.red { background: #ff5f56; }
+    .code-dot.yellow { background: #ffbd2e; }
+    .code-dot.green { background: #27c93f; }
+    .code-line { color: #a9b1d6; margin-bottom: 8px; }
+    .code-line .kw { color: #bb9af7; }
+    .code-line .fn { color: #7dcfff; }
+    .code-line .str { color: #9ece6a; }
+    .code-line .var { color: #e0af68; }
+    .code-line .cm { color: #565f89; }
+    .code-badge {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(139,92,246,0.15); color: #bb9af7; padding: 4px 10px;
+      border-radius: 6px; font-size: 11px;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 88px 0; }
+    .label { font-size: 13px; font-weight: 600; color: var(--violet); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+    .title { font-size: 38px; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+    .desc { font-size: 17px; color: var(--text-soft); max-width: 520px; line-height: 1.7; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-img {
+      background: linear-gradient(135deg, var(--violet-soft), #f3e8ff);
+      border-radius: 20px; height: 360px; display: flex; align-items: center;
+      justify-content: center; position: relative; overflow: hidden;
+    }
+    .about-img svg { width: 180px; height: 180px; color: var(--violet); opacity: 0.5; }
+    .about-img::after {
+      content: ""; position: absolute; bottom: -40px; right: -40px;
+      width: 160px; height: 160px; background: var(--violet); border-radius: 50%; opacity: 0.08;
+    }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 32px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+    .stat-num { font-size: 34px; font-weight: 800; color: var(--violet); letter-spacing: -1px; }
+    .stat-lbl { font-size: 14px; color: var(--text-soft); margin-top: 4px; }
+
+    /* ── SERVICES ── */
+    .services-bg { background: #f4f2fb; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    .service-card {
+      background: var(--surface); border-radius: 18px; padding: 32px;
+      border: 1px solid var(--line); transition: all 0.25s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(124,58,237,0.1); border-color: var(--violet-soft); }
+    .svc-icon {
+      width: 48px; height: 48px; background: var(--violet-soft); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+    }
+    .svc-icon svg { width: 24px; height: 24px; color: var(--violet); }
+    .service-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+    .service-card p { font-size: 15px; color: var(--text-soft); line-height: 1.6; }
+
+    /* ── WORK SAMPLES ── */
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    .work-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+      overflow: hidden; transition: all 0.25s;
+    }
+    .work-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(124,58,237,0.1); border-color: var(--violet-soft); }
+    .work-thumb {
+      height: 180px; background: linear-gradient(135deg, var(--violet-soft), #f3e8ff);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .work-thumb svg { width: 64px; height: 64px; color: var(--violet); opacity: 0.4; }
+    .work-body { padding: 24px; }
+    .work-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .work-body p { font-size: 14px; color: var(--text-soft); }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+    .sk { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; text-align: center; font-weight: 600; font-size: 14px; transition: all 0.2s; }
+    .sk:hover { border-color: var(--violet-soft); background: var(--violet-soft); color: var(--violet); }
+
+    /* ── CONTACT ── */
+    .contact-bg { background: #1e1b2e; color: white; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 48px; }
+    .ci p { font-size: 17px; color: #c4c4d8; line-height: 1.7; margin-bottom: 32px; }
+    .ci-links { display: flex; flex-direction: column; gap: 16px; }
+    .ci-link { display: flex; align-items: center; gap: 14px; color: #c4c4d8; text-decoration: none; font-size: 16px; transition: color 0.2s; }
+    .ci-link:hover { color: white; }
+    .ci-icon {
+      width: 44px; height: 44px; background: rgba(139,92,246,0.15); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ci-icon svg { width: 20px; height: 20px; color: #bb9af7; }
+    .contact-form { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 32px; }
+    .fg { margin-bottom: 18px; }
+    .fg label { display: block; font-size: 12px; font-weight: 600; color: #a9b1d6; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; }
+    .fg input, .fg textarea {
+      width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 14px 16px; color: white;
+      font-family: 'Outfit', sans-serif; font-size: 15px; transition: border-color 0.2s;
+    }
+    .fg input::placeholder, .fg textarea::placeholder { color: #6b6b8a; }
+    .fg input:focus, .fg textarea:focus { outline: none; border-color: var(--violet-light); }
+    .fg textarea { resize: vertical; min-height: 100px; }
+    .contact-form .btn-primary { width: 100%; justify-content: center; font-size: 16px; padding: 14px; }
+
+    /* ── FOOTER ── */
+    footer { padding: 32px 0; border-top: 1px solid rgba(255,255,255,0.08); background: #1e1b2e; }
+    .fi { display: flex; align-items: center; justify-content: space-between; color: #6b6b8a; font-size: 14px; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 36px; }
+      .hero-code { display: none; }
+      .about-grid, .services-grid, .work-grid, .contact-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .title { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <div class="logo">Hassan.</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn-primary">Contact me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Available for projects
+          </div>
+          <h1>Build powerful apps with <span class="highlight">Python</span></h1>
+          <p class="hero-desc">I craft scalable web apps, automation tools, and custom software that help IT businesses move faster. Clean code, real results — delivered on time.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">Contact me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="#work" class="btn-outline">View work</a>
+          </div>
+        </div>
+        <div class="hero-code">
+          <div class="code-header"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+          <span class="code-badge">Python</span>
+          <div class="code-line"><span class="kw">def</span> <span class="fn">build_awesome</span>(idea):</div>
+          <div class="code-line" style="padding-left:24px"><span class="var">client</span> = understand(idea)</div>
+          <div class="code-line" style="padding-left:24px"><span class="var">solution</span> = craft(client)</div>
+          <div class="code-line" style="padding-left:24px"><span class="kw">return</span> ship(solution)</div>
+          <div class="code-line"></div>
+          <div class="code-line"><span class="cm"># Let's build something great</span></div>
+          <div class="code-line"><span class="fn">build_awesome</span>(<span class="str">"your next project"</span>)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="label">About me</div>
+          <h2 class="title">Turning ideas into production-ready software</h2>
+          <p class="desc">Hey, I'm Hassan PK — a Python developer who specializes in building apps, websites, and automation tools for IT clients. Whether it's a startup MVP or an enterprise-grade system, I deliver clean, scalable code that actually works.</p>
+          <div class="stats-grid">
+            <div class="stat-card"><div class="stat-num">50+</div><div class="stat-lbl">Projects delivered</div></div>
+            <div class="stat-card"><div class="stat-num">4+</div><div class="stat-lbl">Years experience</div></div>
+            <div class="stat-card"><div class="stat-num">30+</div><div class="stat-lbl">Happy clients</div></div>
+            <div class="stat-card"><div class="stat-num">99%</div><div class="stat-lbl">On-time delivery</div></div>
+          </div>
+        </div>
+        <div class="about-img">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-bg" id="services">
+    <div class="container">
+      <div class="label">Services</div>
+      <h2 class="title">What I can do for you</h2>
+      <p class="desc">Full-stack Python solutions tailored to your business needs.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <h3>Web Applications</h3>
+          <p>Custom web apps built with Django, Flask, and modern frontend frameworks. Fast, scalable, and production-ready.</p>
+        </div>
+        <div class="service-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+          <h3>Backend APIs</h3>
+          <p>REST and GraphQL APIs designed for performance and reliability. Clean architecture that scales with your business.</p>
+        </div>
+        <div class="service-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <h3>Automation & Scripts</h3>
+          <p>Automate repetitive tasks, streamline workflows, and save hours with custom Python scripts and bots.</p>
+        </div>
+        <div class="service-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+          <h3>Database Design</h3>
+          <p>Optimized database schemas, migrations, and data pipelines using PostgreSQL, MySQL, and MongoDB.</p>
+        </div>
+        <div class="service-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Security & Testing</h3>
+          <p>Comprehensive testing, code reviews, and security hardening to keep your applications bulletproof.</p>
+        </div>
+        <div class="service-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <h3>Deployment & DevOps</h3>
+          <p>Docker, CI/CD pipelines, cloud deployment on AWS, GCP, or DigitalOcean. Ship faster, sleep better.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK SAMPLES -->
+  <section id="work">
+    <div class="container">
+      <div class="label">Work</div>
+      <h2 class="title">Recent projects</h2>
+      <p class="desc">A few examples of what I've built for clients.</p>
+      <div class="work-grid">
+        <div class="work-card">
+          <div class="work-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div class="work-body"><h3>E-Commerce Platform</h3><p>Django + React full-stack shop with payment integration</p></div>
+        </div>
+        <div class="work-card">
+          <div class="work-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <div class="work-body"><h3>Workflow Automation</h3><p>Python automation scripts saving 20+ hrs/week for a SaaS team</p></div>
+        </div>
+        <div class="work-card">
+          <div class="work-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div class="work-body"><h3>REST API Backend</h3><p>FastAPI microservice handling 50k+ daily requests for an IT firm</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="label">Tech Stack</div>
+      <h2 class="title">Tools of the trade</h2>
+      <p class="desc">Modern technologies I use to build robust solutions.</p>
+      <div class="skills-grid">
+        <div class="sk">Python</div><div class="sk">Django</div><div class="sk">Flask</div><div class="sk">FastAPI</div>
+        <div class="sk">PostgreSQL</div><div class="sk">MongoDB</div><div class="sk">Redis</div><div class="sk">Docker</div>
+        <div class="sk">AWS</div><div class="sk">React</div><div class="sk">Git</div><div class="sk">Linux</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-bg" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="ci">
+          <div class="label" style="color:#bb9af7">Contact</div>
+          <h2 class="title" style="color:white">Let's build something great together</h2>
+          <p>Have a project in mind? Drop me a message and let's make it happen. I typically reply within a few hours.</p>
+          <div class="ci-links">
+            <a href="mailto:hassanpk226@gmail.com" class="ci-link">
+              <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+              hassanpk226@gmail.com
+            </a>
+            <a href="#" class="ci-link">
+              <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+              linkedin.com/in/hassanpk
+            </a>
+            <a href="#" class="ci-link">
+              <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></div>
+              @hassanpk
+            </a>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form id="contactForm">
+            <div class="fg">
+              <label>Your Name</label>
+              <input type="text" id="name" placeholder="John Doe" required>
+            </div>
+            <div class="fg">
+              <label>Email</label>
+              <input type="email" id="email" placeholder="john@company.com" required>
+            </div>
+            <div class="fg">
+              <label>Message</label>
+              <textarea id="message" placeholder="Tell me about your project..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" id="submitBtn">
+              Contact me
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container fi">
+      <span>© 2025 Hassan PK. All rights reserved.</span>
+      <span>Built with <span style="color:var(--violet-light)">♥</span> and Python</span>
+    </div>
+  </footer>
+
+  <script>
+    const BOT_TOKEN = '8640689354:AAHRvZLXNjqPkxIgf67-UN-z_r775-bMS7E';
+    const CHAT_ID = '7937844772';
+
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      btn.innerHTML = 'Sending...';
+      btn.disabled = true;
+
+      const text = `📩 *New Contact from Portfolio*\n\n👤 *Name:* ${name}\n📧 *Email:* ${email}\n💬 *Message:* ${message}`;
+      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}&parse_mode=Markdown`;
+
+      try {
+        const res = await fetch(url);
+        if (res.ok) {
+          btn.innerHTML = 'Message sent! ✓';
+          btn.style.background = '#27c93f';
+          this.reset();
+        } else {
+          throw new Error('Telegram API error');
+        }
+      } catch {
+        btn.innerHTML = 'Failed — try again';
+        btn.style.background = '#f43f5e';
+      }
+
+      setTimeout(() => {
+        btn.innerHTML = 'Contact me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 2500);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
